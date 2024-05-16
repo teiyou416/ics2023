@@ -42,6 +42,7 @@ static char *rl_gets() {
 
     return line_read;
 }
+// Code for assignment
 static int cmd_si(char *args) {
     int step = 0;
     if (args == NULL) {
@@ -50,6 +51,16 @@ static int cmd_si(char *args) {
         sscanf(args, "%d", &step);
     }
     cpu_exec(step);
+    return 0;
+}
+static int cmd_info(char *args) {
+    if (args == NULL) {
+        printf("No args");
+    } else if (strcmp(args, "r") == 0) {
+        isa_reg_display();
+    } else if (strcmp(args, "w") == 0) {
+        // sdb_watchpoint_display();
+    }
     return 0;
 }
 static int cmd_c(char *args) {
@@ -73,7 +84,7 @@ static struct {
     {"c", "Continue the execution of the program", cmd_c},
     {"q", "Exit NEMU", cmd_q},
     {"si", "Execute the program step by step", cmd_si},
-
+    {"info", "print the informaiton for register", cmd_info},
     /* TODO: Add more commands */
 
 };
