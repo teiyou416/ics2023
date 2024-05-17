@@ -80,34 +80,6 @@ static int cmd_x(char *args) {
     }
     return 0;
 }
-/* static int cmd_x(char *args) {
-    char *n = strtok(args, " ");
-    char *baseaddr = strtok(NULL, " ");
-    int len = 0;
-    paddr_t addr = 0;
-    sscanf(n, "%d", &len);
-    sscanf(baseaddr, "%x", &addr);
-    for (int i = 0; i < len; i++) {
-        printf("%x\n", paddr_read(addr, 4)); // addr len
-        addr = addr + 4;
-    }
-    return 0;
-}
- */
-/*  static int cmd_x(char *args) {
-    if (args == NULL) {
-        printf("Wrong Command!\n");
-        return 0;
-    }
-    int N;
-    uint32_t startAddress;
-    sscanf(args, "%d%x", &N, &startAddress);
-    for (int i = 0; i < N; i++) {
-        printf("%x\n", paddr_read(startAddress, 4));
-        startAddress += 4;
-    }
-    return 0;
-} */
 
 static int cmd_c(char *args) {
     cpu_exec(-1);
