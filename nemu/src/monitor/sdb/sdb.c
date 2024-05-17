@@ -63,7 +63,7 @@ static int cmd_info(char *args) {
     }
     return 0;
 }
-/* static int cmd_x(char *args) {
+static int cmd_x(char *args) {
     if (args == NULL) {
         printf("wrong input!\n");
         return 0;
@@ -71,17 +71,16 @@ static int cmd_info(char *args) {
     char *n = strtok(args, "");
     char *baseaddr = strtok(NULL, "");
     int len = 0;
-    uint32_t addr;
+    paddr_t addr;
     sscanf(n, "%d", &len);
     sscanf(baseaddr, "%x", &addr);
     for (int i = 0; i < len; i++) {
         printf("%x\n", paddr_read(addr, 4));
-
         addr += 4;
     }
     return 0;
-} */
-static int cmd_x(char *args) {
+}
+/* static int cmd_x(char *args) {
     char *n = strtok(args, " ");
     char *baseaddr = strtok(NULL, " ");
     int len = 0;
@@ -94,7 +93,7 @@ static int cmd_x(char *args) {
     }
     return 0;
 }
-
+ */
 /*  static int cmd_x(char *args) {
     if (args == NULL) {
         printf("Wrong Command!\n");
