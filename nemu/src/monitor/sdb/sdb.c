@@ -68,8 +68,8 @@ static int cmd_x(char *args) {
         printf("wrong input!\n");
         return 0;
     }
-    char *n = strtok(args, "");
-    char *baseaddr = strtok(NULL, "");
+    char *n = strtok(args, " ");
+    char *baseaddr = strtok(NULL, " ");
     int len = 0;
     paddr_t addr;
     sscanf(n, "%d", &len);
