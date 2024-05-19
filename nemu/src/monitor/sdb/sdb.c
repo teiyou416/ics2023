@@ -90,6 +90,16 @@ static int cmd_q(char *args) {
     nemu_state.state = NEMU_QUIT;
     return -1;
 }
+static int cmd_p(char *args) {
+    bool success = true;
+    int32_t result = expr(args, &success);
+    if (!success) {
+        printf("Invalid expression\n");
+    } else {
+        printf("result = %d\n", result);
+    }
+    return 0;
+}
 
 static int cmd_help(char *args);
 
@@ -104,6 +114,7 @@ static struct {
     {"si", "Execute the program step by step", cmd_si},
     {"info", "print the informaiton for register", cmd_info},
     {"x", "Scan the memory", cmd_x},
+    {"p", "Calculate the value of the expression", cmd_p}
     /* TODO: Add more commands */
 
 };
