@@ -138,7 +138,27 @@ static bool make_token(char *e) {
 
     return true;
 }
-
+bool check_parentheses(int p, int q) {
+    if (tokens[p].type != '(' && tokens[q].type != ')') {
+        return false;
+    }
+    int l = p, r = q;
+    while (l < q) {
+        if (tokens[l].type == '(') {
+            if (tokens[r].type == ')') {
+                l++;
+                r--;
+                continue;
+            } else {
+                l++;
+            }
+        } else if (tokens[l].type == ')') {
+            return false;
+        } else
+            l++;
+    }
+    return true;
+}
 word_t expr(char *e, bool *success) {
     if (!make_token(e)) {
         *success = false;
