@@ -150,7 +150,7 @@ bool check_parentheses(int p, int q) {
                 r--;
                 continue;
             } else {
-                l++;
+                r--;
             }
         } else if (tokens[l].type == ')') {
             return false;
@@ -158,6 +158,16 @@ bool check_parentheses(int p, int q) {
             l++;
     }
     return true;
+}
+int32_t eval(word_t p, word_t q) {
+    if (p > q) {
+
+    } else if (p == q) {
+
+    } else if (check_parent(p, q) == true) {
+
+    } else {
+    }
 }
 word_t expr(char *e, bool *success) {
     if (!make_token(e)) {
