@@ -154,23 +154,24 @@ bool check_parentheses(int p, int q) {
             }
         } else if (tokens[l].type == ')') {
             return false;
-        } else
+        } else {
             l++;
+        }
     }
     return true;
 }
-/* int32_t eval(word_t p, word_t q) {
+int32_t eval(word_t p, word_t q) {
     if (p > q) {
         return -1;
     } else if (p == q) {
-        return atoi(tokens[p], str);
+        return atoi(tokens[p].str);
     } else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
     } else {
         int op = -1;
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
-
+        int op_type = tokens[op].type;
         switch (op_type) {
         case '+':
             return val1 + val2;
@@ -183,12 +184,18 @@ bool check_parentheses(int p, int q) {
                 return true;
             }
             return val1 / val2;
-
+        case EQ:
+            return val1 == val2;
+        case NEQ:
+            return val1 != val2;
+        case AND:
+            return val1 && val2;
         default:
             assert(0);
         }
     }
-}*/
+    return true;
+}
 word_t expr(char *e, bool *success) {
     if (!make_token(e)) {
         *success = false;
