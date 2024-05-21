@@ -162,6 +162,7 @@ bool check_parentheses(int p, int q) {
 }
 int32_t eval(word_t p, word_t q) {
     if (p > q) {
+        assert(0);
         return -1;
     } else if (p == q) {
         return atoi(tokens[p].str);
