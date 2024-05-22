@@ -144,7 +144,7 @@ bool check_parentheses(int p, int q) {
         return false;
     }
     int l = p, r = q;
-    while (l < q) {
+    while (l < r) {
         if (tokens[l].type == '(') {
             if (tokens[r].type == ')') {
                 l++;
