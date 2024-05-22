@@ -235,12 +235,12 @@ int32_t eval(word_t p, word_t q) {
     } else {
         word_t op = findMajor(p, q);
         int op_type = tokens[op].type;
-        uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
         if (tokens[op].type == Negative) {
             val2 = -val2;
             return val2;
         }
+        uint32_t val1 = eval(p, op - 1);
         switch (op_type) {
         case '+':
             return val1 + val2;
