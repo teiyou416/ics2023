@@ -29,7 +29,8 @@ enum {
     OR,
     AND,
     NEQ,
-
+    Negative,
+    POINTER,
     /* TODO: Add more token types */
 
 };
@@ -159,6 +160,27 @@ bool check_parentheses(int p, int q) {
         }
     }
     return true;
+}
+word_t fingMajor(word_t p, word_t q) {
+    word_t ret = 0;
+    word_t par = 0;
+    word_t op_type = 0;
+    word_t tmp_type = 0;
+    for (word_t i = p; i <= q; i++) {
+        if (tokens[i].type == '-') {
+            if (i == p) {
+                tokens[i].type == Negative;
+                return i;
+            }
+        }
+    }
+    for (int i = 0; i < nr_token; i++) {
+        if (tokens[i].type == '*' &&
+            (i == 0 || tokens[i - 1] != ')' || tokens[i - 1] != NUM)) {
+            tokens[i].type = POINTER;
+            return i;
+        }
+    }
 }
 int32_t eval(word_t p, word_t q) {
     if (p > q) {
