@@ -161,7 +161,7 @@ bool check_parentheses(int p, int q) {
     }
     return true;
 }
-word_t fingMajor(word_t p, word_t q) {
+word_t findMajor(word_t p, word_t q) {
     word_t ret = 0;
     word_t par = 0;
     word_t op_type = 0;
@@ -233,10 +233,14 @@ int32_t eval(word_t p, word_t q) {
     } else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
     } else {
-        word_t op = fingMajor(p, q);
+        word_t op = findMajor(p, q);
+        int op_type = tokens[op].type;
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
-        int op_type = tokens[op].type;
+        if (tokens[op].type == Negative) {
+            val2 = -val2;
+            return val2;
+        }
         switch (op_type) {
         case '+':
             return val1 + val2;
@@ -268,6 +272,6 @@ word_t expr(char *e, bool *success) {
     }
 
     /* TODO: Insert codes to evaluate the expression. */
-    // return eval(0, nr_token - 1);
+    return eval(0, nr_token - 1);
     return 0;
 }
