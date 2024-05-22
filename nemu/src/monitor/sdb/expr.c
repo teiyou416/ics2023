@@ -233,7 +233,7 @@ int32_t eval(word_t p, word_t q) {
     } else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
     } else {
-        int op = -1;
+        word_t op = fingMajor(p, q);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
         int op_type = tokens[op].type;
