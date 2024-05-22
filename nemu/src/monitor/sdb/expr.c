@@ -169,18 +169,60 @@ word_t fingMajor(word_t p, word_t q) {
     for (word_t i = p; i <= q; i++) {
         if (tokens[i].type == '-') {
             if (i == p) {
-                tokens[i].type == Negative;
+                tokens[i].type = Negative;
                 return i;
             }
         }
-    }
-    for (int i = 0; i < nr_token; i++) {
-        if (tokens[i].type == '*' &&
-            (i == 0 || tokens[i - 1] != ')' || tokens[i - 1] != NUM)) {
-            tokens[i].type = POINTER;
-            return i;
+
+        for (int i = 0; i < nr_token; i++) {
+            if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type != ')' ||
+                                          tokens[i - 1].type != NUM)) {
+                tokens[i].type = POINTER;
+                return i;
+            }
+        }
+        if (tokens[i].type == NUM) {
+            continue;
+        } else if (tokens[i].type == '(') {
+            par++;
+            continue;
+        } else if (tokens[i].type == ')') {
+            if (par == 0) {
+                return -1;
+            }
+            par--;
+        } else if (par > 0) {
+            continue;
+        } else {
+            switch (tokens[i].type) {
+            case '*':
+            case '/':
+                tmp_type = 1;
+                break;
+            case '+':
+            case '-':
+                tmp_type = 2;
+                break;
+            case EQ:
+            case NEQ:
+                tmp_type = 3;
+                break;
+            case AND:
+                tmp_type = 4;
+                break;
+            default:
+                assert(0);
+            }
+            if (tmp_type >= op_type) {
+                op_type = tmp_type;
+                ret = i;
+            }
         }
     }
+    if (par > 0) {
+        return -1;
+    }
+    return ret;
 }
 int32_t eval(word_t p, word_t q) {
     if (p > q) {
