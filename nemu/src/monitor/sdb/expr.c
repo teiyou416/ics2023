@@ -223,7 +223,6 @@ word_t findMajor(word_t p, word_t q) {
         return -1;
     }
     return ret;
-    printf("findMajor: %d\n", ret);
 }
 int32_t eval(word_t p, word_t q) {
     if (p > q) {
