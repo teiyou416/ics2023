@@ -18,8 +18,8 @@
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
+#include <memory/paddr.h>
 #include <regex.h>
-
 enum {
     TK_NOTYPE = 256,
     EQ,
@@ -144,7 +144,7 @@ bool check_parentheses(int p, int q) {
         return false;
     }
     int l = p, r = q;
-    while (l < q) {
+    while (l < r) {
         if (tokens[l].type == '(') {
             if (tokens[r].type == ')') {
                 l++;
@@ -234,12 +234,15 @@ int32_t eval(word_t p, word_t q) {
     } else {
         word_t op = findMajor(p, q);
         int op_type = tokens[op].type;
-        uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
         if (tokens[op].type == Negative) {
             val2 = -val2;
             return val2;
         }
+        if (tokens[op].type == POINTER) {
+            return paddr_read(val2, 4);
+        }
+        uint32_t val1 = eval(p, op - 1);
         switch (op_type) {
         case '+':
             return val1 + val2;
