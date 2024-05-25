@@ -30,21 +30,48 @@ static char *code_format = "#include <stdio.h>\n"
                            "  return 0; "
                            "}";
 int choose(int n) {
-    int flag = rand() % 3;
+    int flag = rand() % n;
     return flag;
 }
-void gen_num() {}
+void gen_num() {
+    word_t num = rand() % 9 + 1;
+    char num_str[2];
+    snprintf(num_str, sizeof(num_str), "%d", num);
+    if (strlen(buf) + strlen(num_str) < sizeof(buf)) {
+        strcat(buf, num_str);
+    } else {
+        return;
+    }
+}
+void gen_op() {
+    char ops[4] = {'+', '-', '*', '/'};
+    word_t op_index = choose(4);
+    char op_str[2] = {ops[op_index], '\0'};
+    if (strlen(buf) + strlen(op_str) < sizeof(buf)) {
+        strcat(buf, op_str);
+    } else {
+        return;
+    }
+}
 static void gen_rand_expr() {
     buf[0] = '\0';
     switch (choose(3)) {
     case 0:
-        gen_num();
+        if (buf[strlen(buf) - 1] != ')') {
+            gen_num();
+        } else {
+            gen_rand_expr();
+        }
         break;
     case 1:
-        gen('(');
-        gen_rand_expr();
-        gen(')');
-        break;
+        if(buf[0]!='\0'&&strchr("+-%/",buf[strlen(buf)-1]){
+            gen('(');
+            gen_rand_expr();
+            gen(')');
+            }
+        else{
+            break;
+            }
     default:
         gen_rand_expr();
         gen_rand_op();
