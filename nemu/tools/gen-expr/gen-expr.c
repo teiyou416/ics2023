@@ -29,11 +29,8 @@ static char *code_format = "#include <stdio.h>\n"
                            "  printf(\"%%u\", result); "
                            "  return 0; "
                            "}";
-int choose(int n) {
-    int flag = rand() % n;
-    return flag;
-}
-void gen_num() {
+static word_t choose(int n) { return rand() % n; }
+static void gen_num() {
     word_t num = rand() % 9 + 1;
     char num_str[2];
     snprintf(num_str, sizeof(num_str), "%d", num);
@@ -43,8 +40,8 @@ void gen_num() {
         return;
     }
 }
-void gen_rand_op() {
-    char ops[4] = {'+', '-', '*', '/'};
+static void gen_rand_op() {
+    char ops[] = {'+', '-', '*', '/'};
     word_t op_index = choose(4);
     char op_str[2] = {ops[op_index], '\0'};
     if (strlen(buf) + strlen(op_str) < sizeof(buf)) {
@@ -79,7 +76,7 @@ static void gen_rand_expr() {
     }
 }
 
-static int check_division_by_zero() {
+/* static int check_division_by_zero() {
     char *p = buf;
     while (*p) {
         if (*p == '/' && *(p + 1) == '0') {
@@ -88,7 +85,7 @@ static int check_division_by_zero() {
         p++;
     }
     return 0;
-}
+} */
 int main(int argc, char *argv[]) {
     int seed = time(0);
     srand(seed);
