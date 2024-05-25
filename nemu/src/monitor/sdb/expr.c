@@ -98,7 +98,6 @@ static bool make_token(char *e) {
     nr_token = 0;
     if (e == NULL) {
         return false;
-        Log("Please input");
     }
     while (e[position] != '\0') {
         /* Try all rules one by one. */
