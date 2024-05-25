@@ -236,7 +236,7 @@ int32_t eval(word_t p, word_t q) {
     } else {
         word_t op = findMajor(p, q);
         int op_type = tokens[op].type;
-        int32_t val2 = eval(op + 1, q);
+        uint32_t val2 = eval(op + 1, q);
         if (op_type == Negative) {
             val2 = -val2;
             return val2;
@@ -244,7 +244,7 @@ int32_t eval(word_t p, word_t q) {
         if (op_type == POINTER) {
             return paddr_read(val2, 4);
         }
-        int32_t val1 = eval(p, op - 1);
+        uint32_t val1 = eval(p, op - 1);
         switch (op_type) {
         case '+':
             return val1 + val2;
