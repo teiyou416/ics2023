@@ -12,7 +12,6 @@
  *
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
-
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -20,6 +19,7 @@
 #include <string.h>
 #include <time.h>
 
+typedef uint32_t word_t;
 // this should be enough
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
@@ -43,7 +43,7 @@ void gen_num() {
         return;
     }
 }
-void gen_op() {
+void gen_rand_op() {
     char ops[4] = {'+', '-', '*', '/'};
     word_t op_index = choose(4);
     char op_str[2] = {ops[op_index], '\0'};
@@ -54,7 +54,6 @@ void gen_op() {
     }
 }
 static void gen_rand_expr() {
-    buf[0] = '\0';
     switch (choose(3)) {
     case 0:
         if (buf[strlen(buf) - 1] != ')') {
@@ -64,14 +63,14 @@ static void gen_rand_expr() {
         }
         break;
     case 1:
-        if(buf[0]!='\0'&&strchr("+-%/",buf[strlen(buf)-1]){
-            gen('(');
+        if (buf[0] != '\0' && strchr("+-*/", buf[strlen(buf) - 1])) {
+            strcat(buf, "(");
             gen_rand_expr();
-            gen(')');
-            }
-        else{
-            break;
-            }
+            strcat(buf, ")");
+        } else {
+            gen_rand_expr();
+        }
+        break;
     default:
         gen_rand_expr();
         gen_rand_op();
@@ -80,6 +79,16 @@ static void gen_rand_expr() {
     }
 }
 
+static int check_division_by_zero() {
+    char *p = buf;
+    while (*p) {
+        if (*p == '/' && *(p + 1) == '0') {
+            return 1;
+        }
+        p++;
+    }
+    return 0;
+}
 int main(int argc, char *argv[]) {
     int seed = time(0);
     srand(seed);
