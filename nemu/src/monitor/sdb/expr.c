@@ -169,13 +169,20 @@ word_t findMajor(word_t p, word_t q) {
     word_t op_type = 0;
     word_t tmp_type = 0;
     for (word_t i = p; i <= q; i++) {
-        if (tokens[i].type == '-') {
+        /* if (tokens[i].type == '-') {
             if (i == p) {
                 tokens[i].type = Negative;
                 return i;
             }
-        }
+        }*/
 
+        if (tokens[i].type == '-') {
+            if (i == p ||
+                (tokens[i - 1].type != NUM && tokens[i - 1].type != ')')) {
+                tokens[i].type = Negative;
+                return i;
+            }
+        }
         /*        for (int i = 0; i < nr_token; i++) {
                     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type
            != ')' || tokens[i - 1].type != NUM)) { tokens[i].type = POINTER;
@@ -206,7 +213,7 @@ word_t findMajor(word_t p, word_t q) {
                 break;
             case EQ:
             case NEQ:
-                tmp_type = 3;
+
                 break;
             case AND:
                 tmp_type = 4;
