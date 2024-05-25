@@ -169,20 +169,13 @@ word_t findMajor(word_t p, word_t q) {
     word_t op_type = 0;
     word_t tmp_type = 0;
     for (word_t i = p; i <= q; i++) {
-        /* if (tokens[i].type == '-') {
+        if (tokens[i].type == '-') {
             if (i == p) {
                 tokens[i].type = Negative;
                 return i;
             }
-        }*/
-
-        if (tokens[i].type == '-') {
-            if (i == p ||
-                (tokens[i - 1].type != NUM && tokens[i - 1].type != ')')) {
-                tokens[i].type = Negative;
-                return i;
-            }
         }
+
         /*        for (int i = 0; i < nr_token; i++) {
                     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type
            != ')' || tokens[i - 1].type != NUM)) { tokens[i].type = POINTER;
@@ -243,15 +236,15 @@ int32_t eval(word_t p, word_t q) {
     } else {
         word_t op = findMajor(p, q);
         int op_type = tokens[op].type;
-        uint32_t val2 = eval(op + 1, q);
-        if (tokens[op].type == Negative) {
+        int32_t val2 = eval(op + 1, q);
+        if (op_type == Negative) {
             val2 = -val2;
             return val2;
         }
-        if (tokens[op].type == POINTER) {
+        if (op_type == POINTER) {
             return paddr_read(val2, 4);
         }
-        uint32_t val1 = eval(p, op - 1);
+        int32_t val1 = eval(p, op - 1);
         switch (op_type) {
         case '+':
             return val1 + val2;
