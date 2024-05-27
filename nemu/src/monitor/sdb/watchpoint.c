@@ -1,8 +1,9 @@
 /***************************************************************************************
-* Copyright (c) 2014-2022 Zihao Yu, Nanjing University
+
 *
 * NEMU is licensed under Mulan PSL v2.
-* You can use this software according to the terms and conditions of the Mulan PSL v2.
+* You can use this software according to the terms and conditions of the Mulan
+PSL v2.
 * You may obtain a copy of Mulan PSL v2 at:
 *          http://license.coscl.org.cn/MulanPSL2
 *
@@ -18,10 +19,10 @@
 #define NR_WP 32
 
 typedef struct watchpoint {
-  int NO;
-  struct watchpoint *next;
+    int NO;
+    struct watchpoint *next;
 
-  /* TODO: Add more members if necessary */
+    /* TODO: Add more members if necessary */
 
 } WP;
 
@@ -29,15 +30,14 @@ static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
 
 void init_wp_pool() {
-  int i;
-  for (i = 0; i < NR_WP; i ++) {
-    wp_pool[i].NO = i;
-    wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
-  }
+    int i;
+    for (i = 0; i < NR_WP; i++) {
+        wp_pool[i].NO = i;
+        wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
+    }
 
-  head = NULL;
-  free_ = wp_pool;
+    head = NULL;
+    free_ = wp_pool;
 }
 
 /* TODO: Implement the functionality of watchpoint */
-
