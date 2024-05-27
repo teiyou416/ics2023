@@ -242,7 +242,7 @@ int32_t eval(word_t p, word_t q) {
             val2 = -val2;
             return val2;
         }
-        if (op_type == POINTER) {
+        if (tokens[op].type == POINTER) {
             return paddr_read(val2, 4);
         }
         uint32_t val1 = eval(p, op - 1);
