@@ -181,7 +181,8 @@ word_t findMajor(word_t p, word_t q) {
                                           tokens[i - 1].type != NUM)) {
                 tokens[i].type = POINTER;
                 return i;
-            }
+            } else
+                continue;
         }
         if (tokens[i].type == NUM) {
             continue;
