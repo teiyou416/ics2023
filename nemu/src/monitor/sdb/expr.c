@@ -178,7 +178,9 @@ word_t findMajor(word_t p, word_t q) {
 
         for (int i = 0; i < nr_token; i++) {
             if (tokens[i].type == '*' &&
-                (i == 0 || tokens[i + 1].type == '(')) {
+                (i == 0 || tokens[i - 1].type == '+' ||
+                 tokens[i - 1].type == '-' || tokens[i - 1].type == '*' ||
+                 tokens[i - 1].type == '/')) {
                 tokens[i].type = POINTER;
                 return i;
             }
