@@ -21,7 +21,9 @@ PSL v2.
 typedef struct watchpoint {
     int NO;
     struct watchpoint *next;
-
+    char expr[100];
+    int new_value;
+    int old_value;
     /* TODO: Add more members if necessary */
 
 } WP;
