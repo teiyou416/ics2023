@@ -1,3 +1,4 @@
+
 /***************************************************************************************
  * Copyright (c) 2014-2022 Zihao Yu, Nanjing University
  *
@@ -12,10 +13,7 @@
  *
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
-#ifndef WATCHPOINT_H
-#define WATCHPOINT_H
-#include "sdb.h"
-#defin WR_WP 32
-word_t expr(char *e, bool *success);
+#ifndef __SDB_H__
+#define __SDB_H__
 
-#endif
+#include <common.h>

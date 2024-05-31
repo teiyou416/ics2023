@@ -100,6 +100,27 @@ static int cmd_p(char *args) {
     }
     return 0;
 }
+static int cmd_info(char *args) {
+    if (args == NULL)
+        printf("No args.\n");
+    else if (strcmp(args, "r") == 0)
+        isa_reg_display();
+    else if (strcmp(args, "w") == 0)
+        sdb_watchpoint_display();
+    return 0;
+}
+static int cmd_d(char *args) {
+    if (args == NULL)
+        printf("No args.\n");
+    else {
+        delete_watchpoint(atoi(args));
+    }
+    return 0;
+}
+static int cmd_w(char *args) {
+    create_watchpoint(args);
+    return 0;
+}
 
 static int cmd_help(char *args);
 
@@ -114,7 +135,10 @@ static struct {
     {"si", "Execute the program step by step", cmd_si},
     {"info", "print the informaiton for register", cmd_info},
     {"x", "Scan the memory", cmd_x},
-    {"p", "Calculate the value of the expression", cmd_p}
+    {"p", "Calculate the value of the expression", cmd_p},
+    {"w", "Set the watchpoint", cmd_w},
+    {"info", "show the watchpoint", cmd_info},
+    {"d", "delete the watchpoint", cmd_d}
     /* TODO: Add more commands */
 
 };
