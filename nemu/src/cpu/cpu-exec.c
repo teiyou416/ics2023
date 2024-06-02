@@ -13,7 +13,7 @@
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
 
-#include </home/teiyou/Downloads/ics2023/nemu/src/monitor/watchpoint.c>
+#include "/home/teiyou/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h"
 #include <cpu/cpu.h>
 #include <cpu/decode.h>
 #include <cpu/difftest.h>

@@ -84,13 +84,13 @@ void sdb_watchpoint_display() {
                        wp_pool[i].NO, wp_pool[i].expr, wp_pool[i].old_value,
                        wp_pool[i].new_value);
             }
-            flag == false;
+            flag = false;
         }
     }
     if (flag)
         printf("No watchpoint.\n");
 }
-void delete_wp(no) {
+void delete_wp(int no) {
     for (int i = 0; i < NR_WP; i++) {
         if (wp_pool[i].NO == no) {
             free_wp(&wp_pool[i]);

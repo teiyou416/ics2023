@@ -14,9 +14,10 @@
  ***************************************************************************************/
 
 #include "sdb.h"
+#include "memory/paddr.h"
+#include </home/teiyou/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h>
 #include <cpu/cpu.h>
 #include <isa.h>
-#include <memory/paddr.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 static int is_batch_mode = false;
@@ -100,7 +101,7 @@ static int cmd_p(char *args) {
     }
     return 0;
 }
-static int cmd_info(char *args) {
+static int cmd_wpinfo(char *args) {
     if (args == NULL)
         printf("No args.\n");
     else if (strcmp(args, "r") == 0)
@@ -113,12 +114,12 @@ static int cmd_d(char *args) {
     if (args == NULL)
         printf("No args.\n");
     else {
-        delete_watchpoint(atoi(args));
+        delete_wp(atoi(args));
     }
     return 0;
 }
 static int cmd_w(char *args) {
-    create_watchpoint(args);
+    create_wp(args);
     return 0;
 }
 
@@ -137,7 +138,7 @@ static struct {
     {"x", "Scan the memory", cmd_x},
     {"p", "Calculate the value of the expression", cmd_p},
     {"w", "Set the watchpoint", cmd_w},
-    {"info", "show the watchpoint", cmd_info},
+    {"wpinfo", "show the watchpoint", cmd_wpinfo},
     {"d", "delete the watchpoint", cmd_d}
     /* TODO: Add more commands */
 
