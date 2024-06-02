@@ -60,7 +60,7 @@ static int cmd_info(char *args) {
     } else if (strcmp(args, "r") == 0) {
         isa_reg_display();
     } else if (strcmp(args, "w") == 0) {
-        // sdb_watchpoint_display();
+        sdb_watchpoint_display();
     }
     return 0;
 }
@@ -101,15 +101,6 @@ static int cmd_p(char *args) {
     }
     return 0;
 }
-static int cmd_wpinfo(char *args) {
-    if (args == NULL)
-        printf("No args.\n");
-    else if (strcmp(args, "r") == 0)
-        isa_reg_display();
-    else if (strcmp(args, "w") == 0)
-        sdb_watchpoint_display();
-    return 0;
-}
 static int cmd_d(char *args) {
     if (args == NULL)
         printf("No args.\n");
@@ -138,7 +129,6 @@ static struct {
     {"x", "Scan the memory", cmd_x},
     {"p", "Calculate the value of the expression", cmd_p},
     {"w", "Set the watchpoint", cmd_w},
-    {"wpinfo", "show the watchpoint", cmd_wpinfo},
     {"d", "delete the watchpoint", cmd_d}
     /* TODO: Add more commands */
 
