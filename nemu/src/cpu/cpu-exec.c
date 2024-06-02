@@ -13,12 +13,13 @@
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
 
-#include "/home/teiyou/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h"
+// #include "/home/teiyou/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h"
+#include "/home/chengye/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h" //change this line with diff pc
+#include "isa.h"
 #include <cpu/cpu.h>
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
-
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -44,7 +45,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
     }
     IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
-    for (int i = 0; i < NR_WP; i++) {
+    /* for (int i = 0; i < NR_WP; i++) {
         if (wp_pool[i].flag) {
             bool success = false;
             int tmp = expr(wp_pool[i].expr, &success);
@@ -59,7 +60,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
                 assert(0);
             }
         }
-    }
+    }*/
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {

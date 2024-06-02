@@ -15,7 +15,7 @@
 
 #include "sdb.h"
 #include "memory/paddr.h"
-#include </home/teiyou/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h>
+#include "watchpoint.h"
 #include <cpu/cpu.h>
 #include <isa.h>
 #include <readline/history.h>

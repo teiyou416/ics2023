@@ -41,6 +41,6 @@ void init_wp_pool();
 WP *new_wp();
 void free_wp(WP *wp);
 void sdb_watchpoint_display();
-void delete_wp();
-void create_wp();
+void delete_wp(int no);
+void create_wp(char *args);
 #endif
