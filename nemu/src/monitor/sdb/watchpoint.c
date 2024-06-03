@@ -91,18 +91,14 @@ void sdb_watchpoint_display() {
         printf("No watchpoint.\n");
 }
 void delete_wp(int no) {
-    bool flag = true;
     for (int i = 0; i < NR_WP; i++) {
         if (wp_pool[i].NO == no) {
             free_wp(&wp_pool[i]);
             return;
-        } else
-            flag = false;
-    }
-    if (flag == false) {
-        printf("no such watchpoint.\n");
+        }
     }
 }
+
 void create_wp(char *args) {
     WP *p = new_wp();
     strcpy(p->expr, args);
