@@ -29,7 +29,7 @@ static char *code_format = "#include <stdio.h>\n"
                            "  printf(\"%%u\", result); "
                            "  return 0; "
                            "}";
-static word_t choose(int n) { return rand() % n; }
+static word_t choose(word_t n) { return rand() % n; }
 static void gen_num() {
     word_t num = rand() % 9 + 1;
     char num_str[2];
@@ -76,7 +76,7 @@ static void gen_rand_expr() {
     }
 }
 
-/* static int check_division_by_zero() {
+static int check_division_by_zero() {
     char *p = buf;
     while (*p) {
         if (*p == '/' && *(p + 1) == '0') {
@@ -85,7 +85,7 @@ static void gen_rand_expr() {
         p++;
     }
     return 0;
-} */
+}
 int main(int argc, char *argv[]) {
     int seed = time(0);
     srand(seed);
