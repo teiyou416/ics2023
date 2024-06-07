@@ -13,8 +13,8 @@
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
 
-#include "/home/teiyou/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h"
-// #include "/home/chengye/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h"
+// #include "/home/teiyou/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h"
+#include "/home/chengye/Downloads/ics2023/nemu/src/monitor/sdb/watchpoint.h"
 // //change this line with diff pc
 #include "isa.h"
 #include <cpu/cpu.h>
