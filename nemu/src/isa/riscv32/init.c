@@ -24,11 +24,6 @@ static const uint32_t img[] = {
     0x0102c503, // lbu a0,16(t0)
     0x00100073, // ebreak (used as nemu_trap)
     0xdeadbeef, // some data
-    0x800002b7, // lui t0,0x80000
-    0x0002a023, // sw  zero,0(t0)
-    0x0002a503, // lw  a0,0(t0)
-    0x00100073, // ebreak (used as nemu_trap)
-    0x00000413, // li
 };
 
 static void restart() {
