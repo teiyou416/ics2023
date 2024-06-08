@@ -29,6 +29,7 @@ enum {
     TYPE_N, // none
     TYPE_J,
     TYPE_B,
+    TYPE_R,
 };
 
 #define src1R()                                                                \
@@ -63,6 +64,7 @@ enum {
         *imm = (SEXT(BITS(i, 31, 31), 1) << 12) | BITS(i, 7, 7) << 11 |        \
                BITS(i, 30, 25) << 5 | BITS(i, 11, 8) << 1;                     \
     } while (0)
+
 static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2,
                            word_t *imm, int type) {
     uint32_t i = s->isa.inst.val;
@@ -90,6 +92,10 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2,
         src2R();
         immB();
         break;
+    case TYPE_R:
+        src1R();
+        src2R();
+        break;
     }
 }
 
@@ -106,11 +112,15 @@ static int decode_exec(Decode *s) {
     }
 
     INSTPAT_START();
-    // INSTPAT("??????? ????? ????? 000 ????? 00100 11", li, I, R(rd) = R(0) +
-    // imm);
+    INSTPAT("??????? ????? ????? 000 ????? 00100 11", li, I,
+            R(rd) = R(0) + imm);
+    INSTPAT("??????? ????? ????? 000 ????? 00100 11", lw, I,
+            R(rd) = Mr(src1 + imm, 4));
     INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi, I,
             R(rd) = src1 + imm);
 
+    INSTPAT("??????? ????? ????? 011 ????? 00100 11", seqz, I,
+            R(rd) = src1 < 1 ? 1 : 0);
     // jal	ra,80000018   将 PC+4 的值保存到 rd 寄存器中，然后设置 PC = PC +
     // offset  拿到的imm要左移一位
     INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal, J, imm = imm << 1,
@@ -123,7 +133,8 @@ static int decode_exec(Decode *s) {
     // 是栈指针寄存器（stack pointer register） 存一个字
     INSTPAT("??????? ????? ????? 010 ????? 01000 11", sw, S,
             Mw(src1 + imm, 4, src2));
-
+    INSTPAT("??????? ????? ????? 101 ????? 01100 11", srl, R,
+            R(rd) = src1 >> (src2 & 31));
     // ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
     // 0000 0000 0000 (0000 1)(000) (0000 0)(110 0111)
     // 00008067          	ret
