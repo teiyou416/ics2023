@@ -28,6 +28,7 @@ enum {
     TYPE_S,
     TYPE_N, // none
     TYPE_J,
+    TYPE_B,
 };
 
 #define src1R()                                                                \
@@ -57,6 +58,10 @@ enum {
                     << 10 |                                                    \
                 BITS(i, 30, 21));                                              \
     } while (0)
+// #define immB()
+// do {
+//     // what to do ?
+// } while (0)
 static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2,
                            word_t *imm, int type) {
     uint32_t i = s->isa.inst.val;
@@ -95,6 +100,8 @@ static int decode_exec(Decode *s) {
     }
 
     INSTPAT_START();
+    // INSTPAT("??????? ????? ????? 000 ????? 00100 11", li, I, R(rd) = R(0) +
+    // imm);
     INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi, I,
             R(rd) = src1 + imm);
 
@@ -117,6 +124,8 @@ static int decode_exec(Decode *s) {
     INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr, I,
             R(rd) = s->pc + 4, s->dnpc = src1 + imm);
 
+    // INSTPAT("??????? ????? ????? 000 ????? 11000 11", beqz, B,
+    //         Mw(src1 + imm, 4, src2));
     // ----上面是添加的指令--------------------------
 
     INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc, U,
