@@ -130,6 +130,8 @@ static int decode_exec(Decode *s) {
 
     INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne, B,
             s->dnpc = (src1 != src2) ? s->pc + imm : s->dnpc);
+    INSTPAT("??????? ????? ????? 110 ????? 11000 11", bltu, B,
+            s->dnpc = (src1 < src2) ? s->pc + imm : s->dnpc);
     //           rs2=ra  rs1=sp
     // 0000 000(0 0001) (0001 0)(010) (0110 0)(010 0011)
     // 00112623    sw	ra,12(sp) 的含义是将寄存器 ra 中的值存储到地址 sp+12
