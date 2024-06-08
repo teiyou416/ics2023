@@ -100,9 +100,9 @@ static int decode_exec(Decode *s) {
 
     // jal	ra,80000018   将 PC+4 的值保存到 rd 寄存器中，然后设置 PC = PC +
     // offset  拿到的imm要左移一位
-    /*INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal, J, imm = imm << 1,
+    INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal, J, imm = imm << 1,
             R(rd) = s->pc + 4, s->dnpc = s->pc + imm);
-    */
+
     //           rs2=ra  rs1=sp
     // 0000 000(0 0001) (0001 0)(010) (0110 0)(010 0011)
     // 00112623    sw	ra,12(sp) 的含义是将寄存器 ra 中的值存储到地址 sp+12
