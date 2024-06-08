@@ -17,7 +17,9 @@
 #include <cpu/cpu.h>
 #include <cpu/decode.h>
 #include <cpu/ifetch.h>
-
+#define CALL(a, b) MUXDEF(FTRACE, func_call(a, b), (void)0)
+#define RET(a, b) MUXDEF(FTRACE, func_ret(a, b), (void)0)
+#define INTR isa_raise_intr
 #define R(i) gpr(i)
 #define Mr vaddr_read
 #define Mw vaddr_write
@@ -140,7 +142,8 @@ static int decode_exec(Decode *s) {
     // 00008067          	ret
     INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr, I,
             R(rd) = s->pc + 4, s->dnpc = src1 + imm);
-
+    INSTPAT("0000000 00000 00001 000 00000 11001 11", ret, I,
+            s->dnpc = src1 - (src1 & 1), RET(s->pc, s->dnpc));
     INSTPAT("??????? ????? ????? 000 ????? 11000 11", beq, B,
             s->dnpc = (src1 == src2) ? s->pc + imm : s->dnpc);
     // ----上面是添加的指令--------------------------
