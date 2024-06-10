@@ -16,7 +16,8 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-    panic("Not implemented");
+    int len = vsnprintf(out, sizeof(sprint_buf), fmt, ap);
+    return len;
 }
 
 int sprintf(char *out, const char *fmt, ...) { // 记录fmt对应的地址
