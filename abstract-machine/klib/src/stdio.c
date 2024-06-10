@@ -19,7 +19,14 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     panic("Not implemented");
 }
 
-int sprintf(char *out, const char *fmt, ...) { panic("Not implemented"); }
+int sprintf(char *out, const char *fmt, ...) { // 记录fmt对应的地址
+    va_list args;
+    int val;
+    va_start(args, fmt);
+    val = vsprintf(sprint_buf, fmt, args);
+    va_end(args);
+    return val;
+}
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
     panic("Not implemented");
