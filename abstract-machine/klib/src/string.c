@@ -43,12 +43,13 @@ char *strncpy(char *dst, const char *src, size_t n) {
 
 // 用于将一个字符串追加到另一个字符串的末尾
 char *strcat(char *dst, const char *src) {
-    size_t i = 0;
-    while (dst[i] != '\0') {
-        i++;
-    }
-
-    strcpy(dst + i, src);
+    assert(dst != NULL && src != NULL);
+    char *tmp = dst;
+    while (*tmp != '\0')
+        tmp++;
+    while (*src != '\0')
+        *tmp++ = *src++;
+    *tmp = '\0';
     return dst;
 }
 
