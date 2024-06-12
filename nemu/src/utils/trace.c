@@ -43,3 +43,14 @@ void display_inst() {
         i = (i + 1) % INST_NUM;
     } while (i != end);
 }
+void display_memory_read(paddr_t addr, int len) {
+    printf(ANSI_FMT("read memory: ", ANSI_FG_BLUE) FMT_PADDR
+           ", the len is %d\n",
+           addr, len);
+}
+
+void display_memory_write(paddr_t addr, int len, word_t data) {
+    printf(ANSI_FMT("write memory: ", ANSI_FG_YELLOW) FMT_PADDR
+           ", the len is %d, the written data is " FMT_WORD "\n",
+           addr, len, data);
+}
